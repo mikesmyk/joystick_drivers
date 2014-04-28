@@ -59,7 +59,7 @@ private:
   ///\brief Publishes diagnostics and status
   void diagnostics(diagnostic_updater::DiagnosticStatusWrapper& stat)
   {
-    double now = ros::Time::now().toSec();
+    double now = ros::WallTime::now().toSec();
     double interval = now - lastDiagTime_;
     if (open_)
       stat.summary(0, "OK");
@@ -142,7 +142,7 @@ public:
     int joy_fd;
     event_count_ = 0;
     pub_count_ = 0;
-    lastDiagTime_ = ros::Time::now().toSec();
+    lastDiagTime_ = ros::WallTime::now().toSec();
     
     // Big while loop opens, publishes
     while (nh_.ok())
@@ -214,7 +214,7 @@ public:
             break; // Joystick is probably closed. Definitely occurs.
           
           //ROS_INFO("Read data...");
-          joy_msg.header.stamp = ros::Time().now();
+          joy_msg.header.stamp = ros::WallTime().now();
           event_count_++;
           switch(event.type)
           {
